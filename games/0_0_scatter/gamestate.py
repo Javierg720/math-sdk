@@ -20,6 +20,10 @@ class GameState(GameStateOverride):
                 self.get_scatterpays_update_wins()
                 self.emit_tumble_win_events()  # Transmit win information
 
+            # evaluate prizes for sctter symbols
+            self.get_scatterpays_update_wins(final_eval=True)
+            self.emit_tumble_win_events()
+
             self.set_end_tumble_event()
             self.win_manager.update_gametype_wins(self.gametype)
 
@@ -44,7 +48,7 @@ class GameState(GameStateOverride):
             while self.win_data["totalWin"] > 0 and not (self.wincap_triggered):
                 self.tumble_game_board()
                 self.update_global_mult()  # Special mechanic - increase multiplier with every tumble
-                
+
                 self.get_scatterpays_update_wins()
                 self.emit_tumble_win_events()  # Transmit win information
 

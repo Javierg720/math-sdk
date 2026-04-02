@@ -31,6 +31,7 @@ class GameConfig(Config):
         self.num_rows = [5] * self.num_reels
         # Board and Symbol Properties
         t1, t2, t3, t4 = (8, 8), (9, 10), (11, 13), (14, 36)
+
         pay_group = {
             (t1, "H1"): 3.0,
             (t2, "H1"): 7.5,
@@ -66,6 +67,8 @@ class GameConfig(Config):
             (t4, "L4"): 4.0,
         }
         self.paytable = self.convert_range_table(pay_group)
+        for i in range(1, 10):
+            self.paytable[(i, "S")] = i
 
         self.include_padding = True
         self.special_symbols = {"wild": ["W"], "scatter": ["S"], "multiplier": ["M"]}

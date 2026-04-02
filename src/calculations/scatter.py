@@ -38,6 +38,7 @@ class Scatter:
         wild_key: str = "wild",
         multiplier_key: str = "multiplier",
         global_multiplier: int = 1,
+        tumble_finished: bool = False,
     ) -> dict:
         """Return win data for all paying symbols"""
         return_data = {
@@ -57,6 +58,9 @@ class Scatter:
 
         # Update all symbol positions with wilds, as this symbol is shared
         for sym in symbols_on_board:
+            if sym == "S" and not (tumble_finished):
+                continue
+
             if len(wild_positions) > 0:
                 symbols_on_board[sym].extend(wild_positions)
             win_size = len(symbols_on_board[sym])
@@ -66,7 +70,8 @@ class Scatter:
                     if board[p["reel"]][p["row"]].check_attribute(multiplier_key):
                         symbol_mult += board[p["reel"]][p["row"]].get_attribute(multiplier_key)
 
-                    board[p["reel"]][p["row"]].explode = True
+                    if not (board[p["reel"]][p["row"]]).scatter:
+                        board[p["reel"]][p["row"]].explode = True
 
                 symbol_mult = max(symbol_mult, 1)
                 overlay_position = Scatter.get_central_scatter_position(

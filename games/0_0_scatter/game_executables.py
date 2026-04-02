@@ -1,6 +1,4 @@
-"""
-
-"""
+""" """
 
 from copy import copy
 
@@ -49,10 +47,10 @@ class GameExecutables(GameCalculations):
             basegame_trigger, freegame_trigger = False, True
         fs_trigger_event(self, basegame_trigger=basegame_trigger, freegame_trigger=freegame_trigger)
 
-    def get_scatterpays_update_wins(self):
+    def get_scatterpays_update_wins(self, final_eval: bool = False):
         """Return the board since we are assigning the 'explode' attribute."""
         self.win_data = Scatter.get_scatterpay_wins(
-            self.config, self.board, global_multiplier=self.global_multiplier
+            self.config, self.board, global_multiplier=self.global_multiplier, tumble_finished=final_eval
         )  # Evaluate wins, self.board is modified in-place
         Scatter.record_scatter_wins(self)
         self.win_manager.tumble_win = self.win_data["totalWin"]
