@@ -61,7 +61,7 @@ class Scatter:
             if sym == "S" and not (tumble_finished):
                 continue
 
-            if len(wild_positions) > 0:
+            if len(wild_positions) > 0 and sym != "S":
                 symbols_on_board[sym].extend(wild_positions)
             win_size = len(symbols_on_board[sym])
             if (win_size, sym) in config.paytable:
